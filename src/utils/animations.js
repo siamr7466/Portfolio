@@ -70,7 +70,7 @@ export const staggerFadeInOnScroll = (parent, children, start = "top 80%", stagg
 // Text scramble effect
 export const textScramble = (element, finalText, duration = 2) => {
   const chars = "!<>-_\\/[]{}—=+*^?#________";
-  const originalText = element.innerText;
+  // const originalText = element.innerText;
   let frame = 0;
   const frameRate = 30;
   const frameCount = duration * frameRate;

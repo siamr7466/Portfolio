@@ -91,7 +91,9 @@ const HeroSection = () => {
       });
     });
     return () => {
-      heroSection.removeEventListener('mousemove', () => {});
+      heroSection.removeEventListener('mousemove', () => {
+        // cleanup
+      });
     };
   }, []);
   return <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-blue-50 to-white overflow-hidden">

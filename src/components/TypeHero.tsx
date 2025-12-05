@@ -1,71 +1,39 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+
 const TypeHero = () => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
+
   useEffect(() => {
-    // Check if SplitText exists on gsap object instead of importing it directly
-    if (gsap.plugins && gsap.plugins.SplitText) {
-      // SplitText is available as a plugin
-      const SplitText = gsap.plugins.SplitText;
-      // Split text for animation
-      const titleSplit = new SplitText(titleRef.current, {
-        type: 'chars, words'
-      });
-      const subtitleSplit = new SplitText(subtitleRef.current, {
-        type: 'chars, words'
-      });
-      // Create animation timeline
-      const tl = gsap.timeline();
-      // Animate title chars
-      tl.from(titleSplit.chars, {
-        opacity: 0,
-        y: 100,
-        rotationX: -90,
-        stagger: 0.02,
-        duration: 1,
-        ease: 'power4.out',
-        delay: 0.5
-      });
-      // Animate subtitle
-      tl.from(subtitleSplit.words, {
-        opacity: 0,
-        y: 20,
-        stagger: 0.05,
-        duration: 0.8,
-        ease: 'power3.out'
-      }, '-=0.5');
-      // Animate scroll indicator
-      tl.from(scrollIndicatorRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.8,
-        ease: 'power2.out'
-      }, '-=0.5');
-    } else {
-      // Fallback animation if SplitText is not available
-      const tl = gsap.timeline();
-      tl.from(titleRef.current, {
-        opacity: 0,
-        y: 50,
-        duration: 1.2,
-        ease: 'power4.out',
-        delay: 0.5
-      });
-      tl.from(subtitleRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: 'power3.out'
-      }, '-=0.7');
-      tl.from(scrollIndicatorRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.8,
-        ease: 'power2.out'
-      }, '-=0.5');
-    }
+    // Fallback animation since SplitText is a premium plugin and might not be available
+    // In a real production environment with Club GreenSock, we would import it properly
+
+    const tl = gsap.timeline();
+
+    tl.from(titleRef.current, {
+      opacity: 0,
+      y: 50,
+      duration: 1.2,
+      ease: 'power4.out',
+      delay: 0.5
+    });
+
+    tl.from(subtitleRef.current, {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      ease: 'power3.out'
+    }, '-=0.7');
+
+    tl.from(scrollIndicatorRef.current, {
+      opacity: 0,
+      y: -20,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=0.5');
+
     // Floating animation for scroll indicator
     gsap.to(scrollIndicatorRef.current, {
       y: 10,
@@ -75,28 +43,32 @@ const TypeHero = () => {
       ease: 'sine.inOut'
     });
   }, []);
-  return <section id="home" className="min-h-screen flex flex-col justify-center items-center relative pt-20 pb-20">
+
+  return (
+    <section id="home" className="min-h-screen flex flex-col justify-center items-center relative pt-20 pb-20">
       <div className="container mx-auto px-6">
-        <h1 ref={titleRef} className="text-7xl md:text-9xl lg:text-[12rem] font-black tracking-tighter leading-none text-center mb-8 uppercase">
+        <h1 ref={titleRef} className="text-6xl md:text-9xl lg:text-[12rem] font-black tracking-tighter leading-none text-center mb-8 uppercase">
           Siam
           <br />
           Rahman
         </h1>
-        <p ref={subtitleRef} className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto text-center font-light">
+        <p ref={subtitleRef} className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto text-center font-light">
           Web Developer, Flutter Developer, WordPress Expert & Professional
           Sales Specialist
         </p>
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-8 text-9xl font-black text-white opacity-5 select-none pointer-events-none">
+
+        {/* Decorative elements - hidden on small screens to prevent overflow */}
+        <div className="hidden md:block absolute top-1/4 left-8 text-9xl font-black text-white opacity-5 select-none pointer-events-none">
           S
         </div>
-        <div className="absolute bottom-1/4 right-8 text-9xl font-black text-white opacity-5 select-none pointer-events-none">
+        <div className="hidden md:block absolute bottom-1/4 right-8 text-9xl font-black text-white opacity-5 select-none pointer-events-none">
           R
         </div>
-        <div className="absolute top-1/3 right-1/4 text-9xl font-black text-white opacity-5 select-none pointer-events-none">
+        <div className="hidden md:block absolute top-1/3 right-1/4 text-9xl font-black text-white opacity-5 select-none pointer-events-none">
           A
         </div>
       </div>
+
       <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer">
         <a href="#about" className="flex flex-col items-center">
           <span className="text-xs uppercase tracking-widest mb-2 opacity-50">
@@ -107,6 +79,8 @@ const TypeHero = () => {
           </svg>
         </a>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default TypeHero;
